@@ -1,10 +1,12 @@
 package com.conexa.main.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 public class People extends StarWarsResource {
     private String name;
     private String birthYear; // Formato ABY/BBY
