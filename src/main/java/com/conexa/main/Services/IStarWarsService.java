@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface IStarWarsService<T> {
-    CustomPage<T> getAll(Pageable pageable, String resource, Class<T> type);
+    CustomPage<T> getAll(Pageable pageable, String resource);
 
-    SWApiUnitResponse<T> getById(int id, String resourceName, Class<T> resourceType);
+    SWApiUnitResponse<T> getById(int id, String resourceName);
 
-    Page<SWResult<T>> search(String name, String title, int page, int size, String resource, Class<T> resourceType);
+    Page<SWResult<T>> search(String name, String title, int page, int size, String resource);
 }

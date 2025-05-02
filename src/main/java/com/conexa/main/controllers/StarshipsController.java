@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/starship")
 public class StarshipsController extends GenericController<Starship> {
     public StarshipsController(StarWarsServiceImpl<Starship> starWarsService) {
-        super(starWarsService, "starships", Starship.class);
+        super(starWarsService, "starships");
     }
 }

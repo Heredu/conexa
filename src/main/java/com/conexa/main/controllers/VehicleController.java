@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/vehicle")
 public class VehicleController extends GenericController<Vehicle> {
     public VehicleController(StarWarsServiceImpl<Vehicle> starWarsService) {
-        super(starWarsService, "vehicles", Vehicle.class);
+        super(starWarsService, "vehicles");
     }
 }

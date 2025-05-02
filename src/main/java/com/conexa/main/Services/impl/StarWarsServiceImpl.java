@@ -26,19 +26,19 @@ public class StarWarsServiceImpl<T> implements IStarWarsService<T> {
     }
 
     @Override
-    public CustomPage<T> getAll(Pageable pageable, String resource, Class<T> type) {
+    public CustomPage<T> getAll(Pageable pageable, String resource) {
         SWApiResponse<?> swApiResponse = starWarsClient.getAll(resource, pageable.getPageNumber(), pageable.getPageSize());
         return CustomPage.fromSwapiResponse(convertResponse(swApiResponse), pageable);
     }
 
     @Override
-    public SWApiUnitResponse<T> getById(int id, String resource, Class<T> resourceType) {
+    public SWApiUnitResponse<T> getById(int id, String resource) {
         SWApiUnitResponse<?> swApiUnitResponse = starWarsClient.getResourceById(resource, id);
         return (convertUnitResponse(swApiUnitResponse));
     }
 
     @Override
-    public Page<SWResult<T>> search(String name, String title, int page, int size, String resource, Class<T> resourceType) {
+    public Page<SWResult<T>> search(String name, String title, int page, int size, String resource) {
         SWApiUnitListResponse<?> swApiUnitResponse = starWarsClient.getSearch(resource, name, title);
         if (swApiUnitResponse == null || swApiUnitResponse.getResult() == null) {
             return new PageImpl<>(Collections.emptyList());
