@@ -1,6 +1,6 @@
 package com.conexa.main.controllers;
 
-import com.conexa.main.Services.impl.GenericServiceImpl;
+import com.conexa.main.Services.impl.StarWarsServiceImpl;
 import com.conexa.main.model.CustomPage;
 import com.conexa.main.model.StarWarsResource;
 import org.springframework.data.domain.PageRequest;
@@ -10,11 +10,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 public abstract class GenericController<T extends StarWarsResource, ID> {
+    private final StarWarsServiceImpl starWarsService;
+    private final String resourceName;
+    private final Class<T> resourceType;
 
-    private final GenericServiceImpl<T, ID> service;
-
-    protected GenericController(GenericServiceImpl<T, ID> service) {
-        this.service = service;
+    public GenericController(StarWarsServiceImpl starWarsService, String resourceName, Class<T> resourceType) {
+        this.starWarsService = starWarsService;
+        this.resourceName = resourceName;
+        this.resourceType = resourceType;
     }
 
     @GetMapping
@@ -23,7 +26,7 @@ public abstract class GenericController<T extends StarWarsResource, ID> {
             @RequestParam(defaultValue = "10") int size) {
 
         Pageable pageable = PageRequest.of(page, size);
-        CustomPage<T> result = service.getAll(pageable);
+        CustomPage<T> result = starWarsService.getAll(pageable, resourceName, resourceType);
         return ResponseEntity.ok(result);
     }
 }
