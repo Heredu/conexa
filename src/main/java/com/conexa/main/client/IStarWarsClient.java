@@ -1,6 +1,7 @@
 package com.conexa.main.client;
 
 import com.conexa.main.model.SWApiResponse;
+import com.conexa.main.model.SWApiUnitListResponse;
 import com.conexa.main.model.SWApiUnitResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,4 +20,9 @@ public interface IStarWarsClient {
     SWApiUnitResponse<?> getResourceById(
             @PathVariable String resource,
             @PathVariable int id);
+
+    @GetMapping("/{resource}")
+    SWApiUnitListResponse<?> getSearch(
+            @PathVariable String resource,
+            @RequestParam String name);
 }

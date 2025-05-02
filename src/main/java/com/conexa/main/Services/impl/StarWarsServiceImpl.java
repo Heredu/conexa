@@ -4,6 +4,7 @@ import com.conexa.main.Services.IStarWarsService;
 import com.conexa.main.client.IStarWarsClient;
 import com.conexa.main.model.CustomPage;
 import com.conexa.main.model.SWApiResponse;
+import com.conexa.main.model.SWApiUnitListResponse;
 import com.conexa.main.model.SWApiUnitResponse;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,12 @@ public class StarWarsServiceImpl<T> implements IStarWarsService<T> {
         return (convertUnitResponse(swApiUnitResponse));
     }
 
+    @Override
+    public SWApiUnitListResponse<T> search(String name, String resource, Class<T> resourceType) {
+        SWApiUnitListResponse<?> swApiUnitResponse = starWarsClient.getSearch(resource, name);
+        return (convertUnitListResponse(swApiUnitResponse));
+    }
+
     @SuppressWarnings("unchecked")
     private <U> SWApiResponse<U> convertResponse(SWApiResponse<?> response) {
         return (SWApiResponse<U>) response;
@@ -37,6 +44,10 @@ public class StarWarsServiceImpl<T> implements IStarWarsService<T> {
     @SuppressWarnings("unchecked")
     private <U> SWApiUnitResponse<U> convertUnitResponse(SWApiUnitResponse<?> response) {
         return (SWApiUnitResponse<U>) response;
+    }
+    @SuppressWarnings("unchecked")
+    private <U> SWApiUnitListResponse<U> convertUnitListResponse(SWApiUnitListResponse<?> response) {
+        return (SWApiUnitListResponse<U>) response;
     }
 }
 

@@ -2,6 +2,7 @@ package com.conexa.main.controllers;
 
 import com.conexa.main.Services.impl.StarWarsServiceImpl;
 import com.conexa.main.model.CustomPage;
+import com.conexa.main.model.SWApiUnitListResponse;
 import com.conexa.main.model.SWApiUnitResponse;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,7 +24,6 @@ public abstract class GenericController<T> {
 
     @GetMapping
     public ResponseEntity<CustomPage<T>> getAll(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size) {
-
         Pageable pageable = PageRequest.of(page, size);
         CustomPage<T> result = starWarsService.getAll(pageable, resourceName, resourceType);
         return ResponseEntity.ok(result);
@@ -32,6 +32,12 @@ public abstract class GenericController<T> {
     @GetMapping("/{id}")
     public ResponseEntity<SWApiUnitResponse<T>> getById(@PathVariable int id) {
         SWApiUnitResponse<T> result = starWarsService.getById(id, resourceName, resourceType);
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<SWApiUnitListResponse<T>> search(@RequestParam String name) {
+        SWApiUnitListResponse<T> result = starWarsService.search(name, resourceName, resourceType);
         return ResponseEntity.ok(result);
     }
 }
