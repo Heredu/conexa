@@ -2,8 +2,9 @@ package com.conexa.main.controllers;
 
 import com.conexa.main.Services.impl.StarWarsServiceImpl;
 import com.conexa.main.model.CustomPage;
-import com.conexa.main.model.SWApiUnitListResponse;
 import com.conexa.main.model.SWApiUnitResponse;
+import com.conexa.main.model.SWResult;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -36,8 +37,8 @@ public abstract class GenericController<T> {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<SWApiUnitListResponse<T>> search(@RequestParam(required = false) String name,@RequestParam(required = false) String title) {
-        SWApiUnitListResponse<T> result = starWarsService.search(name, title, resourceName, resourceType);
-        return ResponseEntity.ok(result);
+    public ResponseEntity<Page<SWResult<T>>> search(@RequestParam(required = false) String name, @RequestParam(required = false) String title, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        Page<SWResult<T>> response = starWarsService.search(name, title, page, size, resourceName, resourceType);
+        return ResponseEntity.ok().body(response);
     }
 }
