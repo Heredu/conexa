@@ -5,6 +5,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
-public interface IStarWarsService<T, ID> {
+public interface IStarWarsService<T> {
     CustomPage<T> getAll(Pageable pageable, String resource, Class<T> type);
 }

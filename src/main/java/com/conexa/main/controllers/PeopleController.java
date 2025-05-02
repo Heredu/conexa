@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/people")
-public class PeopleController extends GenericController<People, Integer> {
-    public PeopleController(StarWarsServiceImpl<People, Integer> starWarsService) {
+public class PeopleController extends GenericController<People> {
+    public PeopleController(StarWarsServiceImpl<People> starWarsService) {
         super(starWarsService, "people", People.class);
     }
 }

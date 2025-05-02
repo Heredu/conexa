@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-public abstract class GenericController<T extends StarWarsResource, ID> {
+public abstract class GenericController<T extends StarWarsResource> {
     private final StarWarsServiceImpl starWarsService;
     private final String resourceName;
     private final Class<T> resourceType;

@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
-public class StarWarsServiceImpl<T extends StarWarsResource, ID> implements IStarWarsService<T, ID> {
+public class StarWarsServiceImpl<T extends StarWarsResource> implements IStarWarsService<T> {
 
     private final IStarWarsClient genericClient;
 
