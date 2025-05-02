@@ -1,6 +1,7 @@
 package com.conexa.main.controllers;
 
 import com.conexa.main.Services.impl.StarWarsServiceImpl;
+import com.conexa.main.config.StarWarsSwagger;
 import com.conexa.main.model.CustomPage;
 import com.conexa.main.model.SWApiUnitResponse;
 import com.conexa.main.model.SWResult;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-public abstract class GenericController<T> {
+public abstract class GenericController<T> implements StarWarsSwagger<T> {
     private final StarWarsServiceImpl<T> starWarsService;
     private final String resourceName;
 
