@@ -4,28 +4,39 @@ import com.conexa.main.Services.IStarWarsService;
 import com.conexa.main.client.IStarWarsClient;
 import com.conexa.main.model.CustomPage;
 import com.conexa.main.model.SWApiResponse;
-import com.conexa.main.model.StarWarsResource;
+import com.conexa.main.model.SWApiUnitResponse;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
-public class StarWarsServiceImpl<T extends StarWarsResource> implements IStarWarsService<T> {
+public class StarWarsServiceImpl<T> implements IStarWarsService<T> {
 
-    private final IStarWarsClient genericClient;
+    private final IStarWarsClient starWarsClient;
 
-    public StarWarsServiceImpl(IStarWarsClient genericClient) {
-        this.genericClient = genericClient;
+    public StarWarsServiceImpl(IStarWarsClient starWarsClient) {
+        this.starWarsClient = starWarsClient;
     }
 
     @Override
     public CustomPage<T> getAll(Pageable pageable, String resource, Class<T> type) {
-        SWApiResponse<?> SWApiResponse = genericClient.getAll(resource, pageable.getPageNumber(), pageable.getPageSize());
-        return CustomPage.fromSwapiResponse(convertResponse(SWApiResponse, type), pageable);
+        SWApiResponse<?> swApiResponse = starWarsClient.getAll(resource, pageable.getPageNumber(), pageable.getPageSize());
+        return CustomPage.fromSwapiResponse(convertResponse(swApiResponse), pageable);
+    }
+
+    @Override
+    public SWApiUnitResponse<T> getById(int id, String resource, Class<T> resourceType) {
+        SWApiUnitResponse<?> swApiUnitResponse = starWarsClient.getResourceById(resource, id);
+        return (convertUnitResponse(swApiUnitResponse));
     }
 
     @SuppressWarnings("unchecked")
-    private <T> SWApiResponse<T> convertResponse(SWApiResponse<?> response, Class<T> type) {
-        return (SWApiResponse<T>) response;
+    private <U> SWApiResponse<U> convertResponse(SWApiResponse<?> response) {
+        return (SWApiResponse<U>) response;
+    }
+
+    @SuppressWarnings("unchecked")
+    private <U> SWApiUnitResponse<U> convertUnitResponse(SWApiUnitResponse<?> response) {
+        return (SWApiUnitResponse<U>) response;
     }
 }
 
