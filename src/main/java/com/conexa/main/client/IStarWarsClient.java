@@ -24,5 +24,6 @@ public interface IStarWarsClient {
     @GetMapping("/{resource}")
     SWApiUnitListResponse<?> getSearch(
             @PathVariable String resource,
-            @RequestParam String name);
+            @RequestParam String name,
+            @RequestParam String title);
 }

@@ -36,8 +36,8 @@ public abstract class GenericController<T> {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<SWApiUnitListResponse<T>> search(@RequestParam String name) {
-        SWApiUnitListResponse<T> result = starWarsService.search(name, resourceName, resourceType);
+    public ResponseEntity<SWApiUnitListResponse<T>> search(@RequestParam(required = false) String name,@RequestParam(required = false) String title) {
+        SWApiUnitListResponse<T> result = starWarsService.search(name, title, resourceName, resourceType);
         return ResponseEntity.ok(result);
     }
 }

@@ -12,5 +12,5 @@ public interface IStarWarsService<T> {
 
     SWApiUnitResponse<T> getById(int id, String resourceName, Class<T> resourceType);
 
-    SWApiUnitListResponse<T> search(String name, String resource, Class<T> resourceType);
+    SWApiUnitListResponse<T> search(String name, String title, String resource, Class<T> resourceType);
 }

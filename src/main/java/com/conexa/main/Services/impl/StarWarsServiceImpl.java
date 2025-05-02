@@ -31,8 +31,8 @@ public class StarWarsServiceImpl<T> implements IStarWarsService<T> {
     }
 
     @Override
-    public SWApiUnitListResponse<T> search(String name, String resource, Class<T> resourceType) {
-        SWApiUnitListResponse<?> swApiUnitResponse = starWarsClient.getSearch(resource, name);
+    public SWApiUnitListResponse<T> search(String name, String title, String resource, Class<T> resourceType) {
+        SWApiUnitListResponse<?> swApiUnitResponse = starWarsClient.getSearch(resource, name, title);
         return (convertUnitListResponse(swApiUnitResponse));
     }
 
