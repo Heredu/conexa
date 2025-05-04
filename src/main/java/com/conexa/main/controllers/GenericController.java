@@ -36,7 +36,7 @@ public abstract class GenericController<T> implements StarWarsSwagger<T> {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<Page<SWResult<T>>> search(@RequestParam(required = false) String name, @RequestParam(required = false) String title, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+    public ResponseEntity<Page<SWResult<T>>> search(@RequestParam(required = false,defaultValue = " ") String name, @RequestParam(required = false,defaultValue = " ") String title, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
         Page<SWResult<T>> response = starWarsService.search(name, title, page, size, resourceName);
         return ResponseEntity.ok().body(response);
     }

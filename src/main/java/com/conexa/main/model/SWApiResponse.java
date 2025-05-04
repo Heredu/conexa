@@ -1,5 +1,6 @@
 package com.conexa.main.model;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
@@ -18,6 +19,7 @@ public class SWApiResponse<T> {
 
     private String previous;
     private String next;
+    @JsonAlias({"result", "results"})
     private List<T> results;
 
     @JsonProperty("apiVersion")
