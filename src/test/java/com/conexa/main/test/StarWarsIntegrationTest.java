@@ -4,7 +4,7 @@ import com.conexa.main.Services.impl.StarWarsServiceImpl;
 import com.conexa.main.controllers.PeopleController;
 import com.conexa.main.model.CustomPage;
 import com.conexa.main.model.People;
-import com.conexa.main.model.SWApiUnitResponse;
+import com.conexa.main.model.StarWarsApiResponseGetById;
 import com.conexa.main.model.SWResult;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -55,13 +55,13 @@ public class StarWarsIntegrationTest {
     @Test
     void getPeopleById_shouldReturnPerson() {
         // arrange
-        SWApiUnitResponse<People> mockResponse = new SWApiUnitResponse<>();
+        StarWarsApiResponseGetById<People> mockResponse = new StarWarsApiResponseGetById<>();
         mockResponse.setResult(new SWResult<>());
         when(starWarsService.getById(anyInt(), anyString()))
                 .thenReturn(mockResponse);
 
         // act
-        ResponseEntity<SWApiUnitResponse<People>> response = peopleController.getById(1);
+        ResponseEntity<StarWarsApiResponseGetById<People>> response = peopleController.getById(1);
 
         // assert
         assertEquals(HttpStatus.OK, response.getStatusCode());

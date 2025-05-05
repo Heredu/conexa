@@ -18,15 +18,15 @@ public class CustomPage<T> {
     private boolean first;
     private boolean last;
 
-    public static <T> CustomPage<T> fromSwapiResponse(SWApiResponse<T> SWApiResponse, Pageable pageable) {
+    public static <T> CustomPage<T> fromSwapiResponse(StarWarsApiResponseGetAll<T> StarWarsApiResponseGetAll, Pageable pageable) {
         CustomPage<T> page = new CustomPage<>();
-        page.setContent((List<T>) SWApiResponse.getResults());
-        page.setTotalPages(SWApiResponse.getTotalPages());
-        page.setTotalElements(SWApiResponse.getTotalRecords());
+        page.setContent((List<T>) StarWarsApiResponseGetAll.getResults());
+        page.setTotalPages(StarWarsApiResponseGetAll.getTotalPages());
+        page.setTotalElements(StarWarsApiResponseGetAll.getTotalRecords());
         page.setNumber(pageable.getPageNumber());
         page.setSize(pageable.getPageSize());
-        page.setFirst(SWApiResponse.getPrevious() == null);
-        page.setLast(SWApiResponse.getNext() == null);
+        page.setFirst(StarWarsApiResponseGetAll.getPrevious() == null);
+        page.setLast(StarWarsApiResponseGetAll.getNext() == null);
         return page;
     }
 }

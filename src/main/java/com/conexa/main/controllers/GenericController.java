@@ -3,7 +3,7 @@ package com.conexa.main.controllers;
 import com.conexa.main.Services.impl.StarWarsServiceImpl;
 import com.conexa.main.config.StarWarsSwagger;
 import com.conexa.main.model.CustomPage;
-import com.conexa.main.model.SWApiUnitResponse;
+import com.conexa.main.model.StarWarsApiResponseGetById;
 import com.conexa.main.model.SWResult;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -30,8 +30,8 @@ public abstract class GenericController<T> implements StarWarsSwagger<T> {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<SWApiUnitResponse<T>> getById(@PathVariable int id) {
-        SWApiUnitResponse<T> result = starWarsService.getById(id, resourceName);
+    public ResponseEntity<StarWarsApiResponseGetById<T>> getById(@PathVariable int id) {
+        StarWarsApiResponseGetById<T> result = starWarsService.getById(id, resourceName);
         return ResponseEntity.ok(result);
     }
 

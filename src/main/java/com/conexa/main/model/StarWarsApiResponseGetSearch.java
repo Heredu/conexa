@@ -7,7 +7,7 @@ import lombok.Setter;
 import java.util.List;
 @Getter
 @Setter
-public class SWApiUnitListResponse<T> {
+public class StarWarsApiResponseGetSearch<T> {
     @JsonAlias({"result", "results"})
     private List<SWResult<T>> result;
 

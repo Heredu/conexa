@@ -10,7 +10,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class SWApiResponse<T> {
+public class StarWarsApiResponseGetAll<T> {
     private String message;
 
     @JsonProperty("total_records")

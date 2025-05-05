@@ -1,7 +1,7 @@
 package com.conexa.main.config;
 
 import com.conexa.main.model.CustomPage;
-import com.conexa.main.model.SWApiUnitResponse;
+import com.conexa.main.model.StarWarsApiResponseGetById;
 import com.conexa.main.model.SWResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -26,10 +26,10 @@ public interface StarWarsSwagger<T> {
             description = "Retorna recurso Star Wars")
     @ApiResponse(responseCode = "200",
             description = "recurso encontrado",
-            content = @Content(schema = @Schema(implementation = SWApiUnitResponse.class)))
+            content = @Content(schema = @Schema(implementation = StarWarsApiResponseGetById.class)))
     @ApiResponse(responseCode = "400", description = "Parámetros inválidos")
     @ApiResponse(responseCode = "500", description = "Error interno del servidor")
-    ResponseEntity<SWApiUnitResponse<T>> getById(@PathVariable int id);
+    ResponseEntity<StarWarsApiResponseGetById<T>> getById(@PathVariable int id);
 
     @Operation(summary = "Obtener lista paginada de recursos filtrados por nombre o titulo",
             description = "Retorna recursos filtrados Star Wars")

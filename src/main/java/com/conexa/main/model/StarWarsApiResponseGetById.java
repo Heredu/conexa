@@ -5,6 +5,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SWApiUnitResponse<T> {
+public class StarWarsApiResponseGetById<T> {
     private SWResult<T> result;
 }

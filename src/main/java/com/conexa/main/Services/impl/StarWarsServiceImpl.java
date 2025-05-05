@@ -3,9 +3,9 @@ package com.conexa.main.Services.impl;
 import com.conexa.main.Services.IStarWarsService;
 import com.conexa.main.client.IStarWarsClient;
 import com.conexa.main.model.CustomPage;
-import com.conexa.main.model.SWApiResponse;
-import com.conexa.main.model.SWApiUnitListResponse;
-import com.conexa.main.model.SWApiUnitResponse;
+import com.conexa.main.model.StarWarsApiResponseGetAll;
+import com.conexa.main.model.StarWarsApiResponseGetSearch;
+import com.conexa.main.model.StarWarsApiResponseGetById;
 import com.conexa.main.model.SWResult;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -27,24 +27,24 @@ public class StarWarsServiceImpl<T> implements IStarWarsService<T> {
 
     @Override
     public CustomPage<T> getAll(Pageable pageable, String resource) {
-        SWApiResponse<?> swApiResponse = starWarsClient.getAll(resource, pageable.getPageNumber(), pageable.getPageSize());
-        return CustomPage.fromSwapiResponse(convertResponse(swApiResponse), pageable);
+        StarWarsApiResponseGetAll<?> starWarsApiResponseGetAll = starWarsClient.getAll(resource, pageable.getPageNumber(), pageable.getPageSize());
+        return CustomPage.fromSwapiResponse(convertResponse(starWarsApiResponseGetAll), pageable);
     }
 
     @Override
-    public SWApiUnitResponse<T> getById(int id, String resource) {
-        SWApiUnitResponse<?> swApiUnitResponse = starWarsClient.getResourceById(resource, id);
-        return (convertUnitResponse(swApiUnitResponse));
+    public StarWarsApiResponseGetById<T> getById(int id, String resource) {
+        StarWarsApiResponseGetById<?> starWarsApiResponseGetById = starWarsClient.getResourceById(resource, id);
+        return (convertUnitResponse(starWarsApiResponseGetById));
     }
 
     @Override
     public Page<SWResult<T>> search(String name, String title, int page, int size, String resource) {
-        SWApiUnitListResponse<?> swApiUnitResponse = starWarsClient.getSearch(resource, name, title);
+        StarWarsApiResponseGetSearch<?> swApiUnitResponse = starWarsClient.getSearch(resource, name, title);
         if (swApiUnitResponse == null || swApiUnitResponse.getResult() == null) {
             return new PageImpl<>(Collections.emptyList());
         }
-        SWApiUnitListResponse<T> swApiUnitListResponse = (convertUnitListResponse(swApiUnitResponse));
-        List<SWResult<T>> result = swApiUnitListResponse.getResult();
+        StarWarsApiResponseGetSearch<T> starWarsApiResponseGetSearch = (convertUnitListResponse(swApiUnitResponse));
+        List<SWResult<T>> result = starWarsApiResponseGetSearch.getResult();
         int totalElements = result.size();
         page = Math.max(0, page);
         size = Math.min(size, Math.max(10, totalElements));
@@ -55,17 +55,17 @@ public class StarWarsServiceImpl<T> implements IStarWarsService<T> {
     }
 
     @SuppressWarnings("unchecked")
-    private <U> SWApiResponse<U> convertResponse(SWApiResponse<?> response) {
-        return (SWApiResponse<U>) response;
+    private <U> StarWarsApiResponseGetAll<U> convertResponse(StarWarsApiResponseGetAll<?> response) {
+        return (StarWarsApiResponseGetAll<U>) response;
     }
 
     @SuppressWarnings("unchecked")
-    private <U> SWApiUnitResponse<U> convertUnitResponse(SWApiUnitResponse<?> response) {
-        return (SWApiUnitResponse<U>) response;
+    private <U> StarWarsApiResponseGetById<U> convertUnitResponse(StarWarsApiResponseGetById<?> response) {
+        return (StarWarsApiResponseGetById<U>) response;
     }
     @SuppressWarnings("unchecked")
-    private <U> SWApiUnitListResponse<U> convertUnitListResponse(SWApiUnitListResponse<?> response) {
-        return (SWApiUnitListResponse<U>) response;
+    private <U> StarWarsApiResponseGetSearch<U> convertUnitListResponse(StarWarsApiResponseGetSearch<?> response) {
+        return (StarWarsApiResponseGetSearch<U>) response;
     }
 }
 

@@ -4,9 +4,9 @@ import com.conexa.main.Services.impl.StarWarsServiceImpl;
 import com.conexa.main.client.IStarWarsClient;
 import com.conexa.main.model.CustomPage;
 import com.conexa.main.model.People;
-import com.conexa.main.model.SWApiResponse;
-import com.conexa.main.model.SWApiUnitListResponse;
-import com.conexa.main.model.SWApiUnitResponse;
+import com.conexa.main.model.StarWarsApiResponseGetAll;
+import com.conexa.main.model.StarWarsApiResponseGetSearch;
+import com.conexa.main.model.StarWarsApiResponseGetById;
 import com.conexa.main.model.SWResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -62,7 +62,7 @@ class StarWarsServiceImplTest {
     @Test
     void getAll_ShouldReturnCustomPage_WhenClientReturnsResponse() {
         // Arrange
-        SWApiResponse<People> mockResponse = new SWApiResponse<>();
+        StarWarsApiResponseGetAll<People> mockResponse = new StarWarsApiResponseGetAll<>();
         mockResponse.setResults(Collections.singletonList(testPeople));
 
         when(starWarsClient.getAll(anyString(), anyInt(), anyInt()))
@@ -81,14 +81,14 @@ class StarWarsServiceImplTest {
     @Test
     void getById_ShouldReturnUnitResponse_WhenClientReturnsResponse() {
         // Arrange
-        SWApiUnitResponse<People> mockResponse = new SWApiUnitResponse<>();
+        StarWarsApiResponseGetById<People> mockResponse = new StarWarsApiResponseGetById<>();
         mockResponse.setResult(testResult);
 
         when(starWarsClient.getResourceById(anyString(), anyInt()))
                 .thenAnswer(invocation -> mockResponse);
 
         // Act
-        SWApiUnitResponse<People> result = starWarsService.getById(TEST_ID, RESOURCE);
+        StarWarsApiResponseGetById<People> result = starWarsService.getById(TEST_ID, RESOURCE);
 
         // Assert
         assertNotNull(result);
@@ -103,7 +103,7 @@ class StarWarsServiceImplTest {
                 .thenAnswer(invocation -> null);
 
         // Act
-        SWApiUnitResponse<People> result = starWarsService.getById(TEST_ID, RESOURCE);
+        StarWarsApiResponseGetById<People> result = starWarsService.getById(TEST_ID, RESOURCE);
 
         // Assert
         assertNull(result);
@@ -112,7 +112,7 @@ class StarWarsServiceImplTest {
     @Test
     void search_ShouldReturnPage_WhenResultsFound() {
         // Arrange
-        SWApiUnitListResponse<People> mockResponse = new SWApiUnitListResponse<>();
+        StarWarsApiResponseGetSearch<People> mockResponse = new StarWarsApiResponseGetSearch<>();
         mockResponse.setResult(Arrays.asList(testResult, testResult));
 
         doReturn(mockResponse)
@@ -148,7 +148,7 @@ class StarWarsServiceImplTest {
     @Test
     void search_ShouldHandlePaginationCorrectly() {
         // Arrange
-        SWApiUnitListResponse<People> mockResponse = new SWApiUnitListResponse<>();
+        StarWarsApiResponseGetSearch<People> mockResponse = new StarWarsApiResponseGetSearch<>();
         List<SWResult<People>> results = Arrays.asList(
                 testResult,
                 testResult,
